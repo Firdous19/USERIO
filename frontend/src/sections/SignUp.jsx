@@ -9,21 +9,45 @@ function SignUp() {
       <div>
         <h1 className="text-3xl px-2 font-semibold">Register</h1>
       </div>
-      <div className="flex justify-between items-start space-x-5">
-        <div className="w-[50%]">
+      <div className="md:flex md:flex-row justify-between items-start space-x-5">
+        <div className="md:w-[50%]">
           <form className="space-y-3">
-            <Input type="text" placeholder="Your Name" />
-            <Input type="email" placeholder="Your Email" />
-            <Input type="number" placeholder="Mobile Number" />
-            <Input type="text" placeholder="Your Profession" />
-            <Input type="password" placeholder="Your Password" />
-            <Input type="password" placeholder="Confirm Password" />
+            <Input
+              imageClass="zmdi zmdi-account"
+              type="text"
+              placeholder="Your Name"
+            />
+            <Input
+              imageClass="zmdi zmdi-email"
+              type="email"
+              placeholder="Your Email"
+            />
+            <Input
+              imageClass="zmdi zmdi-phone-in-talk"
+              type="number"
+              placeholder="Mobile Number"
+            />
+            <Input
+              imageClass="zmdi zmdi-square-o"
+              type="text"
+              placeholder="Your Profession"
+            />
+            <Input
+              imageClass="zmdi zmdi-lock"
+              type="password"
+              placeholder="Your Password"
+            />
+            <Input
+              imageClass="zmdi zmdi-lock-outline"
+              type="password"
+              placeholder="Confirm Password"
+            />
           </form>
           <div className="mt-5">
             <Button>Register</Button>
           </div>
         </div>
-        <div className="w-[50%]  flex flex-col justify-start items-center">
+        <div className="md:w-[50%]  flex flex-col justify-start items-center">
           <img className="" src={registerImage} alt="registerImage" />
           <NavLink to="/signin">I am already registered</NavLink>
         </div>
