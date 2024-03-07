@@ -17,6 +17,7 @@ function Navbar() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <>
       <nav className=" relative navbar flex justify-between items-center px-10 py-5 bg-white">
@@ -35,14 +36,11 @@ function Navbar() {
           <NavbarElement to="/signin">Login</NavbarElement>
           <NavbarElement to="/signup">Register</NavbarElement>
         </div>
-        {/* <div className="absolute right-[30px] top-[20px] cursor-pointer">
-          <i className="zmdi zmdi-menu text-3xl md:hidden"></i>
-        </div> */}
         <div className="-mr-2 -my-2 md:hidden">
           {!isOpen && (
             <button
               onClick={toggleMenu}
-              className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500"
+              className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none"
             >
               <span className="sr-only">Open menu</span>
               {/* Hamburger icon */}
@@ -68,7 +66,6 @@ function Navbar() {
         <Transition
           show={isOpen}
           enter="transition ease-in-out duration-500"
-          // enterFrom="opacity-0 scale-95"
           enterFrom="right-72 opacity-0"
           enterTo="right-0 opacity-100"
           leave="transition ease-in duration-75 transform"
@@ -80,7 +77,7 @@ function Navbar() {
               ref={ref}
               className="fixed inset-y-0 right-0 max-w-xs w-full h-full bg-white transition transform duration-200 ease-in-out sm:pl-16 border-l-[1px] border-gray-200"
             >
-              <div className="h-full flex flex-col space-y-8 py-8 pr-6 pl-8 overflow-y-auto">
+              <div className="h-full flex flex-col space-y-8 py-6 pr-6 pl-8 overflow-y-auto">
                 <div className="flex items-center justify-between">
                   <h2 className="text-2xl font-semibold text-gray-900">Menu</h2>
                   <button

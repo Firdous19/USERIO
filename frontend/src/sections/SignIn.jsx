@@ -2,8 +2,22 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import loginImage from "/images/login-form.jpg";
 import { NavLink } from "react-router-dom";
+import { useState } from "react";
 
 function SignIn() {
+  const [signInFormData, setSignInFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  function handleSignInFormData(e) {
+    setSignInFormData({ ...signInFormData, [e.target.name]: e.target.value });
+  }
+
+  function handleSignInDataOnSubmit() {
+    console.log(signInFormData);
+  }
+
   return (
     <section className="lg:w-[700px] w-[80%] sm:flex flex flex-col sm:flex-row justify-center items-center border shadow-lg rounded-lg py-10 px-14 mx-auto sm:space-x-4 space-y-5 sm:my-24 my-10">
       <div className="sm:w-[50%] flex flex-col justify-center items-center">
@@ -18,18 +32,24 @@ function SignIn() {
         </div>
         <form className="space-y-3">
           <Input
+            onChange={handleSignInFormData}
             imageClass="zmdi zmdi-account"
             type="text"
+            name="email"
             placeholder="Your Email"
           />
           <Input
+            onChange={handleSignInFormData}
             imageClass="zmdi zmdi-lock"
             type="password"
+            name="password"
             placeholder="Your Password"
           />
         </form>
         <div className="mt-5">
-          <Button>SignIn</Button>
+          <Button type="submit" onSubmit={handleSignInDataOnSubmit}>
+            SignIn
+          </Button>
         </div>
       </div>
     </section>
