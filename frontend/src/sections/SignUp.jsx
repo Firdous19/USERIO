@@ -1,12 +1,13 @@
 import registerImage from "/images/register-form.jpg";
 import Input from "../components/Input";
 import Button from "../components/Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function SignUp() {
+  const navigate = useNavigate();
   const [signUpFormData, setSignUpFormData] = useState({
-    name: "",
+    userName: "",
     email: "",
     phone: "",
     profession: "",
@@ -22,6 +23,25 @@ function SignUp() {
     console.log(signUpFormData);
   }
 
+  async function postData() {
+    const response = await fetch("http://localhost:5000/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(signUpFormData),
+    });
+
+    const res = await response.json();
+
+    if (res.status !== 200) {
+      return window.alert(res.message);
+    }
+
+    window.alert(res.message);
+    return navigate("/signin");
+  }
+
   return (
     <section className=" lg:w-[700px] w-[80%] mx-auto p-12 space-y-6 shadow-lg rounded-lg mt-10">
       <div>
@@ -29,18 +49,24 @@ function SignUp() {
       </div>
       <div className="md:flex md:flex-row justify-between items-start space-x-5">
         <div className="md:w-[50%]">
-          <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+          <form
+            method="POST"
+            className="space-y-3"
+            onSubmit={(e) => e.preventDefault()}
+          >
             <Input
               onChange={handleFormData}
               imageClass="zmdi zmdi-account"
               type="text"
-              name="name"
+              value={signUpFormData.userName}
+              name="userName"
               placeholder="Your Name"
             />
             <Input
               onChange={handleFormData}
               imageClass="zmdi zmdi-email"
               type="email"
+              value={signUpFormData.email}
               name="email"
               placeholder="Your Email"
             />
@@ -48,6 +74,7 @@ function SignUp() {
               onChange={handleFormData}
               imageClass="zmdi zmdi-phone-in-talk"
               type="number"
+              value={signUpFormData.phone}
               name="phone"
               placeholder="Mobile Number"
             />
@@ -55,6 +82,7 @@ function SignUp() {
               onChange={handleFormData}
               imageClass="zmdi zmdi-square-o"
               type="text"
+              value={signUpFormData.profession}
               name="profession"
               placeholder="Your Profession"
             />
@@ -62,6 +90,7 @@ function SignUp() {
               onChange={handleFormData}
               imageClass="zmdi zmdi-lock"
               type="password"
+              value={signUpFormData.password}
               name="password"
               placeholder="Your Password"
             />
@@ -69,15 +98,20 @@ function SignUp() {
               onChange={handleFormData}
               imageClass="zmdi zmdi-lock-outline"
               type="password"
+              value={signUpFormData.confirmPassword}
               name="confirmPassword"
               placeholder="Confirm Password"
             />
+            <div className="mt-5">
+              <Button
+                type="submit"
+                onClick={postData}
+                onSubmit={handleSignUpDataOnSubmit}
+              >
+                Register
+              </Button>
+            </div>
           </form>
-          <div className="mt-5">
-            <Button type="submit" onSubmit={handleSignUpDataOnSubmit}>
-              Register
-            </Button>
-          </div>
         </div>
         <div className="md:w-[50%]  flex flex-col justify-start items-center">
           <img className="" src={registerImage} alt="registerImage" />

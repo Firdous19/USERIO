@@ -5,6 +5,7 @@ import Contact from "./sections/Contact";
 import SignIn from "./sections/SignIn";
 import SignUp from "./sections/SignUp";
 import Home from "./sections/Home";
+import Error from "./sections/Error";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/contact" element={<Contact />}></Route>
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="*" element={<Error />}></Route>
         </Routes>
       </div>
     </>

@@ -81,13 +81,11 @@ const handleUserSignIn = asyncHandler(async function (req, res) {
 
   const token = await generateToken(user);
 
-  return res
-    .status(200)
-    .cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-    })
-    .json(new ApiResponse(200, user, "Login Successfull"));
+  res.cookie("token", token, {
+    httpOnly: true,
+  });
+
+  return res.status(200).json(new ApiResponse(200, user, "Login Successfull"));
 });
 
 module.exports = {

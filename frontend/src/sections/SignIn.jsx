@@ -1,10 +1,11 @@
 import Input from "../components/Input";
 import Button from "../components/Button";
 import loginImage from "/images/login-form.jpg";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 function SignIn() {
+  const navigate = useNavigate();
   const [signInFormData, setSignInFormData] = useState({
     email: "",
     password: "",
@@ -16,6 +17,26 @@ function SignIn() {
 
   function handleSignInDataOnSubmit() {
     console.log(signInFormData);
+  }
+  async function postData() {
+    const response = await fetch("http://localhost:5000/signin", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify(signInFormData),
+    });
+
+    const res = await response.json();
+    console.log(res);
+
+    if (res.status !== 200) {
+      return window.alert(res.message);
+    }
+
+    window.alert(res.message);
+    navigate("/");
   }
 
   return (
@@ -30,11 +51,16 @@ function SignIn() {
         <div>
           <h1 className="text-3xl font-semibold">Sign In</h1>
         </div>
-        <form className="space-y-3">
+        <form
+          method="POST"
+          className="space-y-3"
+          onSubmit={(e) => e.preventDefault()}
+        >
           <Input
             onChange={handleSignInFormData}
             imageClass="zmdi zmdi-account"
             type="text"
+            value={signInFormData.email}
             name="email"
             placeholder="Your Email"
           />
@@ -42,15 +68,20 @@ function SignIn() {
             onChange={handleSignInFormData}
             imageClass="zmdi zmdi-lock"
             type="password"
+            value={signInFormData.password}
             name="password"
             placeholder="Your Password"
           />
+          <div className="mt-5">
+            <Button
+              type="submit"
+              onClick={postData}
+              onSubmit={handleSignInDataOnSubmit}
+            >
+              SignIn
+            </Button>
+          </div>
         </form>
-        <div className="mt-5">
-          <Button type="submit" onSubmit={handleSignInDataOnSubmit}>
-            SignIn
-          </Button>
-        </div>
       </div>
     </section>
   );

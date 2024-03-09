@@ -1,5 +1,6 @@
 import Button from "../components/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Info({ children, color }) {
   return (
@@ -20,6 +21,34 @@ function Items({ field, value }) {
 
 function AboutMe() {
   const [show, setshow] = useState(false);
+  const navigate = useNavigate();
+
+  async function userAuthenticate() {
+    try {
+      const response = await fetch("http://localhost:5000/about", {
+        method: "GET",
+        headers: {
+          About: "application/json",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+
+      const res = await response.json();
+      console.log(res);
+
+      if (res.status !== 200) {
+        return navigate("/signin");
+      }
+    } catch (e) {
+      console.log("Error in Authenticating");
+      navigate("/signin");
+    }
+  }
+
+  useEffect(() => {
+    userAuthenticate();
+  }, []);
 
   return (
     <section className=" grid lg:grid-cols-6 gap-5 lg:w-[800px] w-[80%] shadow-lg mx-auto my-10 rounded-md p-10">
@@ -69,10 +98,10 @@ function AboutMe() {
             {!show ? (
               <>
                 <Items field="UserID" value="Firdous"></Items>
-                <Items field="UserID" value="Firdous"></Items>
-                <Items field="UserID" value="Firdous"></Items>
-                <Items field="UserID" value="Firdous"></Items>
-                <Items field="UserID" value="Firdous"></Items>
+                <Items field="UserName" value="Firdous"></Items>
+                <Items field="Email" value="Firdous"></Items>
+                <Items field="Phone" value="Firdous"></Items>
+                <Items field="Profession" value="Firdous"></Items>
               </>
             ) : (
               <>

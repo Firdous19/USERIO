@@ -1,4 +1,4 @@
-function Input({ onChange, imageClass, name, type, placeholder }) {
+function Input({ onChange, value, imageClass, name, type, placeholder }) {
   return (
     <div className="space-x-3 p-2 border-b-[1px] border-b-gray-500 flex items-center">
       <i className={imageClass}></i>
@@ -6,6 +6,7 @@ function Input({ onChange, imageClass, name, type, placeholder }) {
         onChange={onChange}
         className=" outline-none w-full placeholder:text-sm text-sm"
         type={type}
+        value={value}
         name={name}
         placeholder={placeholder}
       />

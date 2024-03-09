@@ -24,7 +24,7 @@ router
   })
   .post(handleUserSignUp);
 
-router.route("/aboutme").get(userAuthentication, (req, res) => {
-  res.send("About me Page");
+router.route("/about").get(userAuthentication, (req, res) => {
+  res.status(200).send(user);
 });
 module.exports = router;
