@@ -1,6 +1,6 @@
 import Button from "../components/Button";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useFetcher, useNavigate } from "react-router-dom";
 
 function Info({ children, color }) {
   return (
@@ -13,7 +13,7 @@ function Info({ children, color }) {
 function Items({ field, value }) {
   return (
     <div className="flex justify-between items-center p-2">
-      <p>{field}</p>
+      <p className="">{field}</p>
       <p>{value}</p>
     </div>
   );
@@ -22,6 +22,11 @@ function Items({ field, value }) {
 function AboutMe() {
   const [show, setshow] = useState(false);
   const navigate = useNavigate();
+  const [userData, setUserData] = useState({});
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   async function userAuthenticate() {
     try {
@@ -35,11 +40,13 @@ function AboutMe() {
       });
 
       const res = await response.json();
-      console.log(res);
+      console.log("Response", res);
 
       if (res.status !== 200) {
         return navigate("/signin");
       }
+
+      setUserData(res.user);
     } catch (e) {
       console.log("Error in Authenticating");
       navigate("/signin");
@@ -51,15 +58,15 @@ function AboutMe() {
   }, []);
 
   return (
-    <section className=" grid lg:grid-cols-6 gap-5 lg:w-[800px] w-[80%] shadow-lg mx-auto my-10 rounded-md p-10">
-      <div className="lg:col-span-2 col-span-6">
+    <section className=" lg:grid lg:grid-cols-6 gap-5 lg:w-[800px] w-[80%] shadow-lg mx-auto my-10 rounded-md p-10">
+      <div className="lg:col-span-2 col-span-6 custom2:flex custom2:justify-start custom2:items-center space-x-4">
         <img
-          className="w-60 border"
+          className="w-60 col-span-2"
           src="/images/default-profile-image.jpg"
           alt="profile"
         />
 
-        <div>
+        <div className="">
           <Info>Youtube</Info>
           <Info>Instagram</Info>
           <Info>github</Info>
@@ -67,11 +74,11 @@ function AboutMe() {
           <Info>Software Engineer</Info>
         </div>
       </div>
-      <div className="lg:col-span-4 border p-5 space-y-5">
+      <div className="lg:col-span-4 p-5 space-y-3">
         <div className="flex justify-between items-start">
-          <div className="space-y-2">
-            <h1 className="p-2">Firdous</h1>
-            <Info color={true}>Web Developer</Info>
+          <div className="space-y-1">
+            <h1 className="p-2">{userData.userName}</h1>
+            <Info color={true}>{userData.profession}</Info>
             <p className="text-gray-500 p-2">
               Rating: <span className="text-black">1/10</span>
             </p>
@@ -97,11 +104,11 @@ function AboutMe() {
           <div className="">
             {!show ? (
               <>
-                <Items field="UserID" value="Firdous"></Items>
-                <Items field="UserName" value="Firdous"></Items>
-                <Items field="Email" value="Firdous"></Items>
-                <Items field="Phone" value="Firdous"></Items>
-                <Items field="Profession" value="Firdous"></Items>
+                <Items field="UserID" value={userData._id}></Items>
+                <Items field="UserName" value={userData.userName}></Items>
+                <Items field="Email" value={userData.email}></Items>
+                <Items field="Phone" value={userData.phone}></Items>
+                <Items field="Profession" value={userData.profession}></Items>
               </>
             ) : (
               <>

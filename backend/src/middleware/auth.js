@@ -27,7 +27,8 @@ async function userAuthentication(req, res, next) {
 
     req.token = token;
     req.user = user;
-    res.status(200).json(new ApiResponse(200));
+    req.id = user._id;
+    // res.status(200).json(new ApiResponse(200));
     next();
   } catch (error) {
     res.status(402).json(new ApiError(402, "Unauthorized from Middleware"));

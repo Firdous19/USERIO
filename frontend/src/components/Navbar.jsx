@@ -35,6 +35,7 @@ function Navbar() {
           <NavbarElement to="/contact">Contact</NavbarElement>
           <NavbarElement to="/signin">Login</NavbarElement>
           <NavbarElement to="/signup">Register</NavbarElement>
+          <NavbarElement to="/logout">Logout</NavbarElement>
         </div>
         <div className="-mr-2 -my-2 md:hidden">
           {!isOpen && (

@@ -62,6 +62,11 @@ const handleUserSignUp = asyncHandler(async function (req, res) {
 
 const handleUserSignIn = asyncHandler(async function (req, res) {
   const { email, password } = req.body;
+  const cookie = req.cookies?.token;
+
+  if (cookie) {
+    return res.status(202).json(new ApiError(202, "You are already signed in"));
+  }
 
   if (!email || !password) {
     return res.status(400).json(new ApiError(400, "All Fields are required"));
@@ -88,7 +93,38 @@ const handleUserSignIn = asyncHandler(async function (req, res) {
   return res.status(200).json(new ApiResponse(200, user, "Login Successfull"));
 });
 
+const handleUserContactForm = asyncHandler(async function (req, res) {
+  const { id, userName, email, phone, message } = req.body;
+
+  if (!userName || !email || !phone || !message) {
+    return res.status(400).json(new ApiError(400, "All Fields are required"));
+  }
+
+  const user = await User.findById(id);
+
+  if (!user) {
+    return res.status(400).json(new ApiError(400, "User Not Found"));
+  }
+
+  user.messages.push({ userName, email, phone, message });
+
+  const response = await user.save({ validateBeforeSave: false });
+
+  // console.log(response);
+
+  res
+    .status(200)
+    .json(new ApiResponse(200, response.messages, "Form Submitted"));
+});
+
+const handleUserLogout = asyncHandler((req, res) => {
+  res.clearCookie("token");
+  return res.status(200).json(new ApiResponse(200, "User logged out Successfully"));
+});
+
 module.exports = {
   handleUserSignUp,
   handleUserSignIn,
+  handleUserContactForm,
+  handleUserLogout,
 };

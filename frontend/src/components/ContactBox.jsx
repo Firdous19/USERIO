@@ -11,3 +11,4 @@ function ContactBox({ image, heading, para }) {
 }
 
 export default ContactBox;
+

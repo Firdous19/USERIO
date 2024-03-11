@@ -4,10 +4,12 @@ const { userAuthentication } = require("../middleware/auth");
 const {
   handleUserSignUp,
   handleUserSignIn,
+  handleUserContactForm,
+  handleUserLogout,
 } = require("../controllers/user.controller");
 
-router.route("/").get((req, res) => {
-  res.send("Welcome to the Server");
+router.route("/").get(userAuthentication, (req, res) => {
+  res.send({ status: 200, user: req.user });
 });
 
 router
@@ -25,6 +27,21 @@ router
   .post(handleUserSignUp);
 
 router.route("/about").get(userAuthentication, (req, res) => {
-  res.status(200).send(user);
+  res.status(200).send({ status: 200, user: req.user });
 });
+
+router
+  .route("/contact")
+  .get(userAuthentication, (req, res) => {
+    res.status(200).send({ status: 200, user: req.user });
+  })
+  .post(handleUserContactForm);
+
+router.route("/logout").get((req, res) => {
+  res.clearCookie("token");
+  return res
+    .status(200)
+    .json(new ApiResponse(200, "User logged out Successfully"));
+});
+
 module.exports = router;

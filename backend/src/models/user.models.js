@@ -3,6 +3,25 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const ApiError = require("../utils/ApiError");
 
+const messageSchema = new Schema({
+  userName: {
+    type: String,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  phone: {
+    type: Number,
+    required: true,
+  },
+  message: {
+    type: String,
+    required: true,
+  },
+});
+
 const userSchema = new Schema(
   {
     userName: {
@@ -32,6 +51,11 @@ const userSchema = new Schema(
     accessToken: {
       type: String,
     },
+    messages: [
+      {
+        type: messageSchema,
+      },
+    ],
   },
   { timestamps: true }
 );
