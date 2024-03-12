@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import logo from "/public/images/logo.png";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { UserContext } from "../App";
 import { Transition } from "@headlessui/react";
 
 function NavbarElement({ children, to }) {
@@ -13,6 +14,7 @@ function NavbarElement({ children, to }) {
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { state, dispatch } = useContext(UserContext);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -30,12 +32,22 @@ function Navbar() {
           </div>
         </NavLink>
         <div className="custom:hidden">
-          <NavbarElement to="/">Home</NavbarElement>
-          <NavbarElement to="/aboutme">About</NavbarElement>
-          <NavbarElement to="/contact">Contact</NavbarElement>
-          <NavbarElement to="/signin">Login</NavbarElement>
-          <NavbarElement to="/signup">Register</NavbarElement>
-          <NavbarElement to="/logout">Logout</NavbarElement>
+          {state ? (
+            <>
+              <NavbarElement to="/">Home</NavbarElement>
+              <NavbarElement to="/aboutme">About</NavbarElement>
+              <NavbarElement to="/contact">Contact</NavbarElement>
+              <NavbarElement to="/logout">Logout</NavbarElement>
+            </>
+          ) : (
+            <>
+              <NavbarElement to="/">Home</NavbarElement>
+              <NavbarElement to="/aboutme">About</NavbarElement>
+              <NavbarElement to="/contact">Contact</NavbarElement>
+              <NavbarElement to="/signin">Login</NavbarElement>
+              <NavbarElement to="/signup">Register</NavbarElement>
+            </>
+          )}
         </div>
         <div className="-mr-2 -my-2 md:hidden">
           {!isOpen && (
@@ -105,11 +117,22 @@ function Navbar() {
                   </button>
                 </div>
                 <div className="flex flex-col space-y-5">
-                  <NavbarElement to="/">Home</NavbarElement>
-                  <NavbarElement to="/aboutme">About</NavbarElement>
-                  <NavbarElement to="/contact">Contact</NavbarElement>
-                  <NavbarElement to="/signin">Login</NavbarElement>
-                  <NavbarElement to="/signup">Register</NavbarElement>
+                  {state ? (
+                    <>
+                      <NavbarElement to="/">Home</NavbarElement>
+                      <NavbarElement to="/aboutme">About</NavbarElement>
+                      <NavbarElement to="/contact">Contact</NavbarElement>
+                      <NavbarElement to="/logout">Logout</NavbarElement>
+                    </>
+                  ) : (
+                    <>
+                      <NavbarElement to="/">Home</NavbarElement>
+                      <NavbarElement to="/aboutme">About</NavbarElement>
+                      <NavbarElement to="/contact">Contact</NavbarElement>
+                      <NavbarElement to="/signin">Login</NavbarElement>
+                      <NavbarElement to="/signup">Register</NavbarElement>
+                    </>
+                  )}
                 </div>
               </div>
             </div>

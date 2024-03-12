@@ -1,6 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import { UserContext } from "../App";
 
 function Logout() {
+  const navigate = useNavigate();
+  const { state, dispatch } = useContext(UserContext);
+
   async function handleUserLogout() {
     try {
       const response = await fetch("http://localhost:5000/logout", {
@@ -15,19 +20,16 @@ function Logout() {
       const res = await response.json();
       console.log("Response", res);
 
-      if (res.status === 200) {
-        return navigate("/");
-      }
+      dispatch({ type: "USER", payload: false });
+      return navigate("/signin");
     } catch (e) {
-      console.log("Error in logging out");
+      console.log("Error in logging out", e);
     }
   }
 
   useEffect(() => {
     handleUserLogout();
-  });
-  
-  return <h1>Logout</h1>;
+  }, []);
 }
 
 export default Logout;

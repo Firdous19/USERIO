@@ -117,10 +117,18 @@ const handleUserContactForm = asyncHandler(async function (req, res) {
     .json(new ApiResponse(200, response.messages, "Form Submitted"));
 });
 
-const handleUserLogout = asyncHandler((req, res) => {
-  res.clearCookie("token");
-  return res.status(200).json(new ApiResponse(200, "User logged out Successfully"));
-});
+const handleUserLogout = (req, res) => {
+  if (!req.cookies?.token) {
+    return res
+      .status(202)
+      .json(new ApiError(202, "You are already logged out"));
+  }
+
+  return res
+    .clearCookie("token")
+    .status(200)
+    .json(new ApiResponse(200, null, "User logged out Successfully"));
+};
 
 module.exports = {
   handleUserSignUp,

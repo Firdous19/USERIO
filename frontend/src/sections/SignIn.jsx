@@ -2,9 +2,12 @@ import Input from "../components/Input";
 import Button from "../components/Button";
 import loginImage from "/images/login-form.jpg";
 import { NavLink, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../App";
 
 function SignIn() {
+  const { state, dispatch } = useContext(UserContext);
+
   const navigate = useNavigate();
   const [signInFormData, setSignInFormData] = useState({
     email: "",
@@ -35,6 +38,7 @@ function SignIn() {
       return window.alert(res.message);
     }
 
+    dispatch({ type: "USER", payload: true });
     window.alert(res.message);
     navigate("/");
   }

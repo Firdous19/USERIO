@@ -14,7 +14,9 @@ function Home() {
 
     const res = await response.json();
 
-    setName(res.user.userName);
+    if (res.status === 200) {
+      setName(res.user.userName);
+    }
   }
 
   useEffect(() => {
@@ -22,7 +24,7 @@ function Home() {
   }, []);
   // bg-gradient-to-r from-blue-300 to-white
   return (
-    <section className=" border md:absolute md:top-0 md:left-0 w-screen h-screen -z-10">
+    <section className=" border md:absolute md:top-0 md:left-0 w-dvw h-screen -z-10 overflow-hidden">
       <div className="grid md:grid-cols-2 md:place-items-center h-full custom:py-3">
         <div className="text-center w-full h-full md:bg-gradient-to-r from-blue-300 to-white grid place-items-center mt-10">
           <div className="space-y-4">

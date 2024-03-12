@@ -37,11 +37,6 @@ router
   })
   .post(handleUserContactForm);
 
-router.route("/logout").get((req, res) => {
-  res.clearCookie("token");
-  return res
-    .status(200)
-    .json(new ApiResponse(200, "User logged out Successfully"));
-});
+router.route("/logout").get(handleUserLogout);
 
 module.exports = router;
