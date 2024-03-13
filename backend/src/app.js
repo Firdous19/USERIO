@@ -10,10 +10,9 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: "https://mern-mu.vercel.app",
+    origin: "https://mern-woad.vercel.app",
   })
 );
 app.use("/", userRouter);
-
 
 module.exports = app;
