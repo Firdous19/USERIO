@@ -4,7 +4,7 @@ function Home() {
   const [name, setName] = useState("");
 
   async function userAuthorized() {
-    const response = await fetch("http://localhost:5000/", {
+    const response = await fetch("https://mern-mu.vercel.app/", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

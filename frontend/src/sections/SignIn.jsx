@@ -22,7 +22,7 @@ function SignIn() {
     console.log(signInFormData);
   }
   async function postData() {
-    const response = await fetch("http://localhost:5000/signin", {
+    const response = await fetch("https://mern-mu.vercel.app/signin", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

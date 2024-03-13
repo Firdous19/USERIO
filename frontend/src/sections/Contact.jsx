@@ -42,7 +42,7 @@ function Contact() {
 
   //sending data to the server
   async function handleContactFormData() {
-    const response = await fetch("http://localhost:5000/contact", {
+    const response = await fetch("https://mern-mu.vercel.app/contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

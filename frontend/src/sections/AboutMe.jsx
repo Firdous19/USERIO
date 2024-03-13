@@ -30,7 +30,7 @@ function AboutMe() {
 
   async function userAuthenticate() {
     try {
-      const response = await fetch("http://localhost:5000/about", {
+      const response = await fetch("https://mern-mu.vercel.app/about", {
         method: "GET",
         headers: {
           About: "application/json",

@@ -8,7 +8,7 @@ function Logout() {
 
   async function handleUserLogout() {
     try {
-      const response = await fetch("http://localhost:5000/logout", {
+      const response = await fetch("https://mern-mu.vercel.app/logout", {
         method: "GET",
         headers: {
           About: "application/json",

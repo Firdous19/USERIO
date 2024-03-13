@@ -24,7 +24,7 @@ function SignUp() {
   }
 
   async function postData() {
-    const response = await fetch("http://localhost:5000/signup", {
+    const response = await fetch("https://mern-mu.vercel.app/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
