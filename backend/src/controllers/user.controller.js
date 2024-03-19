@@ -88,7 +88,7 @@ const handleUserSignIn = asyncHandler(async function (req, res) {
 
   res.cookie("token", token, {
     httpOnly: true,
-    expires: "1d",
+    expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
   });
 
   return res.status(200).json(new ApiResponse(200, user, "Login Successfull"));
