@@ -13,7 +13,7 @@ function Contact() {
   });
 
   async function getUserData() {
-    const response = await fetch("http://localhost:5000/contact", {
+    const response = await fetch("https://mern-mu.vercel.app/contact", {
       mothod: "GET",
       headers: {
         "Content-Type": "application/json",
