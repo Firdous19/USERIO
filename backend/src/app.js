@@ -10,7 +10,7 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: "https://mern-woad.vercel.app",
+    origin: ["https://mern-woad.vercel.app", "http://localhost:5173"],
   })
 );
 app.use("/", userRouter);

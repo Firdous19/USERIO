@@ -88,6 +88,7 @@ const handleUserSignIn = asyncHandler(async function (req, res) {
 
   res.cookie("token", token, {
     httpOnly: true,
+    expires: "1d",
   });
 
   return res.status(200).json(new ApiResponse(200, user, "Login Successfull"));
@@ -118,11 +119,11 @@ const handleUserContactForm = asyncHandler(async function (req, res) {
 });
 
 const handleUserLogout = (req, res) => {
-  if (!req.cookies?.token) {
-    return res
-      .status(202)
-      .json(new ApiError(202, "You are already logged out"));
-  }
+  // if (!req.cookies?.token) {
+  //   return res
+  //     .status(202)
+  //     .json(new ApiError(202, "You are already logged out"));
+  // }
 
   return res
     .clearCookie("token")
