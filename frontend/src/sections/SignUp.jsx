@@ -22,7 +22,6 @@ function SignUp() {
   function handleSignUpDataOnSubmit() {
     console.log(signUpFormData);
   }
-
   async function postData() {
     const response = await fetch("https://mern-mu.vercel.app/signup", {
       method: "POST",
